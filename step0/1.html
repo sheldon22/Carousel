@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Carousel</title>
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <style>
+        .inner{
+            width: 300px;
+            overflow: hidden;
+        }
+        .images{
+            display: flex;
+            align-items: flex-start;
+            transition: transform 1.5s;
+        }
+        .button{
+            margin-top:5px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="inner">
+        <div class="images" id="images">
+            <img src="http://www.allanimalsites.com/news/gallery/british-bulldog/british_bulldog_1.jpg" 
+                 alt="" width="300px">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/1._2006%2C_May_29_097.jpg/1024px-1._2006%2C_May_29_097.jpg" 
+                 alt="" width="300px">
+            <img src="http://images2.fanpop.com/image/photos/14400000/French-Bulldog-all-small-dogs-14497052-1024-768.jpg" 
+                 alt="" width="300px">
+        </div>
+    </div>
+    <div class="button">
+        <button id="first">The First</button>
+        <button id="second">The Second</button>
+        <button id="third">The Third</button>
+    </div>
+</body>
+<script>
+    $(first).on('click', function(){
+        $(images).css({
+            transform:'translateX(0)'
+        })
+    })
+    $(second).on('click', function(){
+        $(images).css({
+            transform:'translateX(-300px)'
+        })
+    })
+    $(third).on('click', function(){
+        $(images).css({
+            transform:'translateX(-600px)'
+        })
+    })
+</script>
+</html>
