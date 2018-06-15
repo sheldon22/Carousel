@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Carousel</title>
+    <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+    <style>
+        .inner{
+            width: 300px;
+            overflow: hidden;
+        }
+        .images{
+            display: flex;
+            align-items: flex-start;
+            transition: transform 1.5s;
+        }
+        .buttons{
+            margin-top:5px; 
+        }
+        .buttons > button{
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .set{
+            font-weight: bold;
+            font-size: 16px;
+            color: #0084FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="inner">
+        <div class="images" id="images">
+            <img src="http://www.allanimalsites.com/news/gallery/british-bulldog/british_bulldog_1.jpg" 
+                 alt="" width="300px">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/1._2006%2C_May_29_097.jpg/1024px-1._2006%2C_May_29_097.jpg" 
+                 alt="" width="300px">
+            <img src="http://images2.fanpop.com/image/photos/14400000/French-Bulldog-all-small-dogs-14497052-1024-768.jpg" 
+                 alt="" width="300px">
+        </div>
+    </div>
+    <div class="buttons" id="buttons">
+        <button>The First</button>
+        <button>The Second</button>
+        <button>The Third</button>
+    </div>
+</body>
+<script>
+    var allButtons = $('#buttons > button')
+    for(let i = 0; i < allButtons.length; i++){
+        $(allButtons[i]).on('click',function(x){
+            var index = $(x.currentTarget).index()
+            var n = index * -300
+            $('#images').css({
+                transform:'translate(' + n + 'px)'
+            })
+            allButtons.eq(n).addClass('set')
+            .siblings('.set').removeClass('set')
+        })
+    }
+    // 实现自动播放
+    var n = 0
+    var allImages = $('#images > img') 
+    var size = allImages.length
+    var timerId = setInterval(()=>{
+        n = n + 1
+        allButtons.eq(n % size)
+        .trigger('click')
+        .addClass('set')
+        .siblings('.set').removeClass('set')
+    },2000)
+    $('.inner').on('mouseenter',function(){
+        window.clearInterval(timerId)
+    })
+    $('.inner').on('mouseleave',function(){
+        timerId = setInterval(()=>{
+        n = n + 1
+        allButtons.eq(n % size)
+        .trigger('click')
+        .addClass('set')
+        .siblings('.set').removeClass('set')
+        },2000)
+    })
+</script>
+</html>
