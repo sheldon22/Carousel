@@ -4,84 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Carousel</title>
+    <title>Document</title>
     <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
     <style>
-        .inner{
-            width: 300px;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .outer{
+            width: 600px;
             overflow: hidden;
+            margin: 20px auto;
         }
         .images{
             display: flex;
             align-items: flex-start;
-            transition: transform 1.5s;
+            transition: all 2s;
         }
-        .buttons{
-            margin-top:5px; 
+        .bullets{
+            text-align: center;
         }
-        .buttons > button{
-            padding: 5px;
-            border-radius: 5px;
+        .bullets > span{
+            width: 10px;
+            height: 10px;
+            background: #000;
+            display: inline-block;
+            border-radius: 100%;
+            opacity: 0.2;
+            margin: 0 4px;
         }
-        .set{
-            font-weight: bold;
-            font-size: 16px;
-            color: #0084FF;
+        .bullets > span.active{
+            opacity: 1;
+            background: #007aff;
         }
     </style>
 </head>
 <body>
-    <div class="inner">
+    <div class="outer">
         <div class="images" id="images">
             <img src="http://www.allanimalsites.com/news/gallery/british-bulldog/british_bulldog_1.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
             <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/1._2006%2C_May_29_097.jpg/1024px-1._2006%2C_May_29_097.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
             <img src="http://images2.fanpop.com/image/photos/14400000/French-Bulldog-all-small-dogs-14497052-1024-768.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
         </div>
     </div>
-    <div class="buttons" id="buttons">
-        <button>The First</button>
-        <button>The Second</button>
-        <button>The Third</button>
+    <div class="bullets">
+        <span id="left" ></span>
+        <span id="middle"></span>
+        <span id="right"></span>
     </div>
 </body>
 <script>
-    var allButtons = $('#buttons > button')
-    for(let i = 0; i < allButtons.length; i++){
-        $(allButtons[i]).on('click',function(x){
-            var index = $(x.currentTarget).index()
-            var n = index * -300
-            $('#images').css({
-                transform:'translate(' + n + 'px)'
-            })
-            allButtons.eq(n).addClass('set')
-            .siblings('.set').removeClass('set')
+    let bullets = $('.bullets > span')
+    for(let i = 0; i < bullets.length; i++){
+        $(bullets[i]).on('click',(x)=>{
+            let index = $(x.currentTarget).index()
+            let value = index * -600
+                $('#images').css({
+                    transform:'translate(' + value + 'px)'
+                })
+            console.log(n)
+            n = index
+            console.log(n)
+            $(bullets[i]).addClass('active').siblings('.active').removeClass('active')
         })
     }
-    // 实现自动播放
-    var n = 0
-    var allImages = $('#images > img') 
-    var size = allImages.length
-    var timerId = setInterval(()=>{
+    let n = 0
+    let timer = setInterval(()=>{
         n = n + 1
-        allButtons.eq(n % size)
-        .trigger('click')
-        .addClass('set')
-        .siblings('.set').removeClass('set')
-    },2000)
-    $('.inner').on('mouseenter',function(){
-        window.clearInterval(timerId)
+        bullets.eq(n % bullets.length).trigger('click')
+        .addClass('active').siblings('.active').removeClass('active')
+    },6000)
+
+    $('.outer').on('mouseenter',()=>{
+        window.clearInterval(timer)
     })
-    $('.inner').on('mouseleave',function(){
-        timerId = setInterval(()=>{
-        n = n + 1
-        allButtons.eq(n % size)
-        .trigger('click')
-        .addClass('set')
-        .siblings('.set').removeClass('set')
-        },2000)
+
+    $('.outer').on('mouseleave',()=>{
+        timer = setInterval(()=>{
+            n = n + 1
+            bullets.eq(n % bullets.length).trigger('click')
+            .addClass('active').siblings('.active').removeClass('active')
+        },6000)
     })
+   
 </script>
 </html>
