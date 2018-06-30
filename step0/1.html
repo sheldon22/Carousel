@@ -7,52 +7,73 @@
     <title>Carousel</title>
     <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
     <style>
-        .inner{
-            width: 300px;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .outer{
+            width: 600px;
             overflow: hidden;
+            margin: 20px auto;
         }
         .images{
             display: flex;
             align-items: flex-start;
-            transition: transform 1.5s;
+            transition: all 3s;
         }
-        .button{
-            margin-top:5px; 
+        .bullets{
+            text-align: center;
+        }
+        .bullets > span{
+            width: 10px;
+            height: 10px;
+            background: #000;
+            display: inline-block;
+            border-radius: 100%;
+            opacity: 0.2;
+            margin: 0 4px;
+        }
+        .bullets > span.active{
+            opacity: 1;
+            background: #007aff;
         }
     </style>
 </head>
 <body>
-    <div class="inner">
+    <div class="outer">
         <div class="images" id="images">
             <img src="http://www.allanimalsites.com/news/gallery/british-bulldog/british_bulldog_1.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
             <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/1._2006%2C_May_29_097.jpg/1024px-1._2006%2C_May_29_097.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
             <img src="http://images2.fanpop.com/image/photos/14400000/French-Bulldog-all-small-dogs-14497052-1024-768.jpg" 
-                 alt="" width="300px">
+                alt="" width="600px">
         </div>
     </div>
-    <div class="button">
-        <button id="first">The First</button>
-        <button id="second">The Second</button>
-        <button id="third">The Third</button>
+    <div class="bullets">
+        <span id="left" ></span>
+        <span id="middle"></span>
+        <span id="right"></span>
     </div>
 </body>
 <script>
-    $(first).on('click', function(){
-        $(images).css({
-            transform:'translateX(0)'
-        })
+   $(left).on('click',function(){
+    $('.images').css({
+       transform:'translate(0)' 
     })
-    $(second).on('click', function(){
-        $(images).css({
-            transform:'translateX(-300px)'
-        })
+    $(left).addClass('active').siblings('.active').removeClass('active')
+})
+$(middle).on('click',function(){
+    $('.images').css({
+        transform:'translate(-100%)'
     })
-    $(third).on('click', function(){
-        $(images).css({
-            transform:'translateX(-600px)'
-        })
+    $(middle).addClass('active').siblings('.active').removeClass('active')
+})
+$(right).on('click',function(){
+    $('.images').css({
+        transform:'translate(-200%)'
     })
+    $(right).addClass('active').siblings('.active').removeClass('active')
+})
 </script>
 </html>
