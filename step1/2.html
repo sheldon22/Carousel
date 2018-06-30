@@ -65,16 +65,14 @@
                 $('#images').css({
                     transform:'translate(' + value + 'px)'
                 })
-            console.log(n)
             n = index
-            console.log(n)
             $(bullets[i]).addClass('active').siblings('.active').removeClass('active')
         })
     }
     let n = 0
     let timer = setInterval(()=>{
         n = n + 1
-        bullets.eq(n % bullets.length).trigger('click')
+        $(bullets[n % bullets.length]).trigger('click')
         .addClass('active').siblings('.active').removeClass('active')
     },6000)
 
@@ -85,7 +83,7 @@
     $('.outer').on('mouseleave',()=>{
         timer = setInterval(()=>{
             n = n + 1
-            bullets.eq(n % bullets.length).trigger('click')
+            $(bullets[n % bullets.length]).trigger('click')
             .addClass('active').siblings('.active').removeClass('active')
         },6000)
     })
